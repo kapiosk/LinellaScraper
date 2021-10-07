@@ -2,15 +2,18 @@
 # -*- coding: utf-8 -*-
 
 import csv
+import datetime
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
+
+current_datetime = datetime.datetime.utcnow()
 
 baseUrl = 'https://linella.md'
 html = urlopen(f'{baseUrl}/en').read()
 soup = BeautifulSoup(html, features = 'html.parser')
 generalCategories = soup.find_all('ul', class_ = 'level2')
 
-header = ['category', 'page', 'name', 'price', 'normal_price']
+header = ['category', 'page', 'name', 'price', 'normal_price', 'scan_time']
 
 with open('items.csv', 'w', encoding='UTF8') as f:
     writer = csv.writer(f)
@@ -39,7 +42,7 @@ with open('items.csv', 'w', encoding='UTF8') as f:
                                 np = price
                             name = item.find('h3', class_ = 'tovar__name').text.strip()
                             if name:
-                                writer.writerow([catName, page, name, price, np])
+                                writer.writerow([catName, page, name, price, np, current_datetime])
                     paging = catSoup.find_all('a', class_ = 'pag__item', href = True)
                     if paging:
                         lastPage = paging[-1].find('span').text
