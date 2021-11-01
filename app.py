@@ -15,7 +15,7 @@ generalCategories = soup.find_all('ul', class_ = 'level2')
 
 header = ['category', 'page', 'name', 'price', 'normal_price', 'scan_time']
 
-with open('items.csv', 'w', encoding='UTF8') as f:
+with open('items.csv', 'w', encoding = 'UTF8') as f:
     writer = csv.writer(f)
     writer.writerow(header)
     for gc in generalCategories:
