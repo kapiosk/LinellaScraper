@@ -7,6 +7,7 @@ from urllib.request import urlopen
 from bs4 import BeautifulSoup
 
 current_datetime = datetime.datetime.utcnow()
+current_datetime = ''
 
 baseUrl = 'https://linella.md'
 html = urlopen(f'{baseUrl}/en').read()
@@ -56,4 +57,4 @@ with open('items.csv', 'w', encoding = 'UTF8') as f:
                 except:
                     hasMorePages = False
                     print("An exception occurred")
-                
+
